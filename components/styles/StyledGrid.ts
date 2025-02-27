@@ -1,4 +1,4 @@
-import { CardContent, Grid2 } from "@mui/material";
+import { Grid2 } from "@mui/material";
 import styled from "styled-components";
 
 export const StyledGridContainer = styled(Grid2)`
@@ -16,4 +16,14 @@ export const StyledGridItem = styled(Grid2)`
   justify-content: center;
   align-items: center;
   padding: 10px;
+
+  flex-basis: 100%;
+
+  @media (min-width: 768px) {
+    flex-basis: 35%;
+  }
+
+  @media (min-width: 1024px) {
+    flex-basis: 20%;
+  }
 `;

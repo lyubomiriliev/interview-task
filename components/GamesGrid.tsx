@@ -67,10 +67,7 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
           const fileExtension = imageUrl?.split(".").pop()?.toLowerCase();
 
           return (
-            <StyledGridItem
-              key={game.id}
-              sx={{ width: { xs: "100%", sm: "50%", md: "33.3%", lg: "25%" } }}
-            >
+            <StyledGridItem key={game.id}>
               <StyledCard>
                 {fileExtension === "webp" ||
                 fileExtension === "jpg" ||
