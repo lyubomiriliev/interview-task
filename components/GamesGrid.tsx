@@ -9,8 +9,20 @@ import {
   Typography,
 } from "@mui/material";
 import Image from "next/image";
-import { StyledCard } from "./styles/StyledCard";
 import { useEffect, useState } from "react";
+import {
+  FlexCardContent,
+  StyledCard,
+  StyledCardContent,
+  StyledCardMedia,
+} from "./styles/StyledCard";
+import {
+  BetInfo,
+  GameIndex,
+  GameTitle,
+  Provider,
+} from "./styles/StyledTypography";
+import { StyledGridContainer, StyledGridItem } from "./styles/StyledGrid";
 
 interface Game {
   image: string;
@@ -49,33 +61,28 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
-        Slot Games List
-      </Typography>
-      <Grid2 container spacing={3} component="div">
+      <StyledGridContainer container spacing={3}>
         {slotGames.slice(0, 12).map((game) => {
           const imageUrl = game.imageModern?.modern;
           const fileExtension = imageUrl?.split(".").pop()?.toLowerCase();
 
           return (
-            <Grid2
+            <StyledGridItem
               key={game.id}
-              component="div"
               sx={{ width: { xs: "100%", sm: "50%", md: "33.3%", lg: "25%" } }}
             >
               <StyledCard>
                 {fileExtension === "webp" ||
                 fileExtension === "jpg" ||
                 fileExtension === "png" ? (
-                  <CardMedia>
+                  <StyledCardMedia>
                     <Image
                       width={250}
                       height={150}
                       alt={game.name}
                       src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
-                      style={{ objectFit: "cover", borderRadius: "8px" }}
                     />
-                  </CardMedia>
+                  </StyledCardMedia>
                 ) : fileExtension === "webm" && mounted ? (
                   <video
                     width="100%"
@@ -94,24 +101,22 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
                   <Typography variant="body2">No Image Available</Typography>
                 )}
 
-                <CardContent>
-                  <Typography variant="h6">{game.name}</Typography>
-                  <Typography variant="h6">{game.index}</Typography>
-                  <Typography variant="body2" color="textSecondary">
+                <StyledCardContent>
+                  <GameTitle variant="h6">{game.name}</GameTitle>
+                  <GameIndex variant="h6">{game.index}</GameIndex>
+                  <Provider variant="body2" color="textSecondary">
                     {game.provider}
-                  </Typography>
-                  <Typography variant="body2">
-                    Min Bet: {game.betMin}
-                  </Typography>
-                  <Typography variant="body2">
-                    Max Bet: {game.betMax}
-                  </Typography>
-                </CardContent>
+                  </Provider>
+                  <FlexCardContent>
+                    <BetInfo variant="body2">Min Bet: {game.betMin}</BetInfo>
+                    <BetInfo variant="body2">Max Bet: {game.betMax}</BetInfo>
+                  </FlexCardContent>
+                </StyledCardContent>
               </StyledCard>
-            </Grid2>
+            </StyledGridItem>
           );
         })}
-      </Grid2>
+      </StyledGridContainer>
     </div>
   );
 };
