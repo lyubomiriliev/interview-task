@@ -29,3 +29,8 @@ export const GameIndex = styled(Typography)`
   justify-content: center;
   color: #d4af37;
 `;
+
+export const GoldText = styled(Typography)`
+  color: #d4af37;
+  font-size: 20px;
+`;

@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Grid2,
-  Typography,
-} from "@mui/material";
+import { Typography } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
@@ -20,9 +13,16 @@ import {
   BetInfo,
   GameIndex,
   GameTitle,
+  GoldText,
   Provider,
 } from "./styles/StyledTypography";
-import { StyledGridContainer, StyledGridItem } from "./styles/StyledGrid";
+import {
+  StyledDiv,
+  StyledGridContainer,
+  StyledGridItem,
+  StyledWrapper,
+} from "./styles/StyledGrid";
+import { StyledButton } from "./styles/StyledButton";
 
 interface Game {
   image: string;
@@ -47,8 +47,11 @@ interface Props {
   games: Game[];
 }
 
+const GAMES_PER_PAGE = 8;
+
 const GamesGrid: React.FC<Props> = ({ games }) => {
   const [mounted, setMounted] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   //   FIXING THE HYDRATION WARNING FROM VIDEOS
   useEffect(() => {
@@ -59,10 +62,21 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
     (game) => game.category.toLowerCase() === "slots"
   );
 
+  const totalPages = Math.ceil(slotGames.length / GAMES_PER_PAGE);
+  const firstPage = (currentPage - 1) * GAMES_PER_PAGE;
+  const lastPage = firstPage + GAMES_PER_PAGE;
+  const currentGames = slotGames.slice(firstPage, lastPage);
+
   return (
-    <div>
+    <StyledWrapper>
+      <Image
+        width={300}
+        height={120}
+        alt="PalmsBetLogo"
+        src={"../palmsbet-logo.svg"}
+      />
       <StyledGridContainer container spacing={3}>
-        {slotGames.slice(0, 12).map((game) => {
+        {currentGames.map((game) => {
           const imageUrl = game.imageModern?.modern;
           const fileExtension = imageUrl?.split(".").pop()?.toLowerCase();
 
@@ -114,7 +128,28 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
           );
         })}
       </StyledGridContainer>
-    </div>
+      <StyledDiv>
+        <StyledButton
+          variant="contained"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === totalPages}
+        >
+          Previous
+        </StyledButton>
+        <GoldText>
+          Page {currentPage} of {totalPages}
+        </GoldText>
+        <StyledButton
+          variant="contained"
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </StyledButton>
+      </StyledDiv>
+    </StyledWrapper>
   );
 };
 
