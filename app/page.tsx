@@ -6,7 +6,6 @@ export default async function Home() {
 
   return (
     <main>
-      <h1>Casino Games List</h1>
       <GamesGrid games={games} />
     </main>
   );

@@ -1,5 +1,16 @@
-import { GetStaticProps } from "next";
+"use client";
+
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Grid2,
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
+import { StyledCard } from "./styles/StyledCard";
+import { useEffect, useState } from "react";
 
 interface Game {
   image: string;
@@ -25,44 +36,82 @@ interface Props {
 }
 
 const GamesGrid: React.FC<Props> = ({ games }) => {
+  const [mounted, setMounted] = useState(false);
+
+  //   FIXING THE HYDRATION WARNING FROM VIDEOS
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const slotGames = games.filter(
+    (game) => game.category.toLowerCase() === "slots"
+  );
+
   return (
     <div>
-      <h1>Games Grid</h1>
-      <ul>
-        {games.slice(0, 10).map((game) => {
+      <Typography variant="h4" gutterBottom>
+        Slot Games List
+      </Typography>
+      <Grid2 container spacing={3} component="div">
+        {slotGames.slice(0, 12).map((game) => {
           const imageUrl = game.imageModern?.modern;
           const fileExtension = imageUrl?.split(".").pop()?.toLowerCase();
 
           return (
-            <li key={game.id}>
-              <p>{game.name}</p>
-              <p>{game.provider}</p>
-              <p>{game.index}</p>
-              <p>{game.category}</p>
+            <Grid2
+              key={game.id}
+              component="div"
+              sx={{ width: { xs: "100%", sm: "50%", md: "33.3%", lg: "25%" } }}
+            >
+              <StyledCard>
+                {fileExtension === "webp" ||
+                fileExtension === "jpg" ||
+                fileExtension === "png" ? (
+                  <CardMedia>
+                    <Image
+                      width={250}
+                      height={150}
+                      alt={game.name}
+                      src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
+                      style={{ objectFit: "cover", borderRadius: "8px" }}
+                    />
+                  </CardMedia>
+                ) : fileExtension === "webm" && mounted ? (
+                  <video
+                    width="100%"
+                    height="150"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  >
+                    <source
+                      src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
+                      type="video/webm"
+                    />
+                  </video>
+                ) : (
+                  <Typography variant="body2">No Image Available</Typography>
+                )}
 
-              {fileExtension === "webp" ||
-              fileExtension === "jpg" ||
-              fileExtension === "png" ? (
-                <Image
-                  width={600}
-                  height={600}
-                  alt={game.name}
-                  src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
-                />
-              ) : fileExtension === "webm" ? (
-                <video width={600} height={600} autoPlay loop muted playsInline>
-                  <source
-                    src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
-                    type="video/webm"
-                  />
-                </video>
-              ) : (
-                <p>No Image Available</p>
-              )}
-            </li>
+                <CardContent>
+                  <Typography variant="h6">{game.name}</Typography>
+                  <Typography variant="h6">{game.index}</Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    {game.provider}
+                  </Typography>
+                  <Typography variant="body2">
+                    Min Bet: {game.betMin}
+                  </Typography>
+                  <Typography variant="body2">
+                    Max Bet: {game.betMax}
+                  </Typography>
+                </CardContent>
+              </StyledCard>
+            </Grid2>
           );
         })}
-      </ul>
+      </Grid2>
     </div>
   );
 };
