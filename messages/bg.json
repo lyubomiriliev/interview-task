@@ -2,6 +2,13 @@
   "HomePage": {
     "provider": "Доставчик",
     "minBet": "Минимален Залог",
-    "maxBet": "Максимален Залог"
+    "maxBet": "Максимален Залог",
+    "page": "Страница",
+    "nextPage": "Следваща",
+    "previousPage": "Предишна"
+  },
+  "Languages": {
+    "english": "Английски",
+    "bulgarian": "Български"
   }
 }

@@ -139,10 +139,10 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
         >
-          Previous
+          {t("previousPage")}
         </StyledButton>
         <GoldText>
-          Page {currentPage} of {totalPages}
+          {t("page")} {currentPage} of {totalPages}
         </GoldText>
         <StyledButton
           onClick={() =>
@@ -150,7 +150,7 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
           }
           disabled={currentPage === totalPages}
         >
-          Next
+          {t("nextPage")}
         </StyledButton>
       </StyledDiv>
     </StyledWrapper>

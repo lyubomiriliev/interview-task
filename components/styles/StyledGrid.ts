@@ -14,7 +14,7 @@ export const StyledWrapper = styled.div`
 `;
 
 export const StyledDiv = styled.div`
-  width: 20%;
+  width: 25%;
   max-width: 100vw;
   padding: 0;
   margin: 0;

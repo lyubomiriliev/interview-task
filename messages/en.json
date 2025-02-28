@@ -2,6 +2,13 @@
   "HomePage": {
     "provider": "Provider",
     "minBet": "Min Bet",
-    "maxBet": "Max Bet"
+    "maxBet": "Max Bet",
+    "page": "Page",
+    "nextPage": "Next",
+    "previousPage": "Previous"
+  },
+  "Languages": {
+    "english": "English",
+    "bulgarian": "Bulgarian"
   }
 }
