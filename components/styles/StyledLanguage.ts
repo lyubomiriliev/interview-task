@@ -3,9 +3,11 @@ import styled from "styled-components";
 
 export const LanguageSwitcherContainer = styled.div`
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 20px;
+  right: 20px;
   z-index: 999;
+  background-color: #d4af37;
+  border-radius: 20px;
 `;
 
 export const StyledLanguageButton = styled(Button)`
@@ -18,7 +20,7 @@ export const StyledLanguageButton = styled(Button)`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
   &:hover {
-    background-color: rgb(175, 136, 9);
+    background-color: rgb(172, 132, 2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
