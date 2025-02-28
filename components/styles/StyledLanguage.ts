@@ -1,7 +1,14 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
 
-export const StyledButton = styled(Button)`
+export const LanguageSwitcherContainer = styled.div`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 999;
+`;
+
+export const StyledLanguageButton = styled(Button)`
   background-color: #d4af37;
   color: black;
   font-weight: bold;

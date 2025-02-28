@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { routing } from "@/src/i18n/routing";
 import { notFound } from "next/navigation";
 import { getMessages } from "next-intl/server";
+import EmotionProvider from "@/components/EmotionProvider";
 
 export const metadata: Metadata = {
   title: "Interview Task",
@@ -15,9 +16,9 @@ export default async function LocaleLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const locale = params.locale;
+  const { locale } = await params;
   if (!routing.locales.includes(locale as any)) {
     notFound();
   }
@@ -27,9 +28,11 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          {children}
-        </NextIntlClientProvider>
+        <EmotionProvider>
+          <NextIntlClientProvider messages={messages} locale={locale}>
+            {children}
+          </NextIntlClientProvider>
+        </EmotionProvider>
       </body>
     </html>
   );

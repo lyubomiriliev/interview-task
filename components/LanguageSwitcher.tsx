@@ -1,8 +1,11 @@
 "use client";
 import { usePathname, useRouter } from "@/src/i18n/navigation";
-import { Button } from "@mui/material";
 import { useLocale } from "next-intl";
 import React from "react";
+import {
+  LanguageSwitcherContainer,
+  StyledLanguageButton,
+} from "./styles/StyledLanguage";
 
 const LanguageSwitcher = () => {
   const router = useRouter();
@@ -15,9 +18,11 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <Button onClick={switchLocale}>
-      {currentLocale === "en" ? "Български" : "English"}
-    </Button>
+    <LanguageSwitcherContainer>
+      <StyledLanguageButton onClick={switchLocale}>
+        {currentLocale === "en" ? "Български" : "English"}
+      </StyledLanguageButton>
+    </LanguageSwitcherContainer>
   );
 };
 

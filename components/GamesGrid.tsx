@@ -22,8 +22,10 @@ import {
   StyledGridItem,
   StyledWrapper,
 } from "./styles/StyledGrid";
-import { StyledButton } from "./styles/StyledButton";
 import { useTranslations } from "next-intl";
+import { StyledButton } from "./styles/StyledButton";
+import VideoClient from "./VideoClient";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface Game {
   image: string;
@@ -51,8 +53,6 @@ interface Props {
 const GAMES_PER_PAGE = 8;
 
 const GamesGrid: React.FC<Props> = ({ games }) => {
-  const t = useTranslations("HomePage");
-
   const [mounted, setMounted] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -60,6 +60,12 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const t = useTranslations("HomePage");
+
+  if (!mounted) {
+    return null;
+  }
 
   const slotGames = games.filter(
     (game) => game.category.toLowerCase() === "slots"
@@ -72,6 +78,7 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
 
   return (
     <StyledWrapper>
+      <LanguageSwitcher />
       <Image
         width={300}
         height={120}
@@ -97,20 +104,10 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
                       src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
                     />
                   </StyledCardMedia>
-                ) : fileExtension === "webm" && mounted ? (
-                  <video
-                    width="100%"
-                    height="150"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                  >
-                    <source
-                      src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
-                      type="video/webm"
-                    />
-                  </video>
+                ) : fileExtension === "webm" ? (
+                  <VideoClient
+                    src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
+                  />
                 ) : (
                   <Typography variant="body2">No Image Available</Typography>
                 )}
