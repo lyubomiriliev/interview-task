@@ -23,6 +23,7 @@ import {
   StyledWrapper,
 } from "./styles/StyledGrid";
 import { StyledButton } from "./styles/StyledButton";
+import { useTranslations } from "next-intl";
 
 interface Game {
   image: string;
@@ -50,6 +51,8 @@ interface Props {
 const GAMES_PER_PAGE = 8;
 
 const GamesGrid: React.FC<Props> = ({ games }) => {
+  const t = useTranslations("HomePage");
+
   const [mounted, setMounted] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -116,11 +119,15 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
                   <GameTitle variant="h6">{game.name}</GameTitle>
                   <GameIndex variant="h6">{game.index}</GameIndex>
                   <Provider variant="body2" color="textSecondary">
-                    {game.provider}
+                    {t("provider")} {game.provider}
                   </Provider>
                   <FlexCardContent>
-                    <BetInfo variant="body2">Min Bet: {game.betMin}</BetInfo>
-                    <BetInfo variant="body2">Max Bet: {game.betMax}</BetInfo>
+                    <BetInfo variant="body2">
+                      {t("minBet")} {game.betMin}
+                    </BetInfo>
+                    <BetInfo variant="body2">
+                      {t("maxBet")} {game.betMax}
+                    </BetInfo>
                   </FlexCardContent>
                 </StyledCardContent>
               </StyledCard>

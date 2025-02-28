@@ -1,0 +1,7 @@
+{
+  "HomePage": {
+    "provider": "Provider",
+    "minBet": "Min Bet",
+    "maxBet": "Max Bet"
+  }
+}
