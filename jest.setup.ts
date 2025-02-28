@@ -1,35 +1,32 @@
 import "@testing-library/jest-dom";
 
+const mockRouter = {
+  push: jest.fn(),
+  replace: jest.fn(),
+  pathname: "/",
+};
+
 jest.mock("next/navigation", () => ({
-  useRouter: jest.fn(() => ({
-    push: jest.fn(),
-    replace: jest.fn(),
-    pathname: "/",
-  })),
-  usePathname: jest.fn(() => "/"),
-  useSearchParams: jest.fn(() => ({
-    get: jest.fn(),
-  })),
+  useRouter: jest.fn(() => mockRouter),
+  usePathname: jest.fn(() => mockRouter.pathname),
   useParams: jest.fn(() => ({})),
 }));
 
-// Mock next-intl navigation functions
-jest.mock("next-intl/navigation", () => ({
-  useRouter: jest.fn(() => ({
-    push: jest.fn(),
-    replace: jest.fn(),
-    pathname: "/",
-  })),
-  usePathname: jest.fn(() => "/"),
-  useLocale: jest.fn(() => "en"),
-  createNavigation: jest.fn(() => ({
-    useRouter: jest.fn(() => ({
-      push: jest.fn(),
-      replace: jest.fn(),
-      pathname: "/",
+jest.mock("next-intl/navigation", () => {
+  const mockIntlRouter = {
+    ...mockRouter,
+    locale: "en",
+  };
+
+  return {
+    useRouter: jest.fn(() => mockIntlRouter),
+    usePathname: jest.fn(() => mockIntlRouter.pathname),
+    useLocale: jest.fn(() => mockIntlRouter.locale),
+    createNavigation: jest.fn(() => ({
+      useRouter: jest.fn(() => mockIntlRouter),
+      usePathname: jest.fn(() => mockIntlRouter.pathname),
+      useLocale: jest.fn(() => mockIntlRouter.locale),
+      getPathname: jest.fn(() => mockIntlRouter.pathname),
     })),
-    usePathname: jest.fn(() => "/"),
-    useLocale: jest.fn(() => "en"),
-    getPathname: jest.fn(() => "/"),
-  })),
-}));
+  };
+});

@@ -100,6 +100,7 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
                     <Image
                       width={250}
                       height={150}
+                      priority
                       alt={game.name}
                       src={`https://cdn.palmsbet.com${game.imageModern.modern}`}
                     />
@@ -134,9 +135,8 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
       </StyledGridContainer>
       <StyledDiv>
         <StyledButton
-          variant="contained"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === 1}
         >
           Previous
         </StyledButton>
@@ -144,7 +144,6 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
           Page {currentPage} of {totalPages}
         </GoldText>
         <StyledButton
-          variant="contained"
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalPages))
           }

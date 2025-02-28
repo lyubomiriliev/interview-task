@@ -5,6 +5,7 @@ export const StyledCard = styled(Card)`
   background-color: #1e1e1e; /* Dark background */
   color: white;
   border-radius: 12px; /* Rounded corners */
+  width: 220px;
   max-width: 250px;
   margin: auto;
   text-align: center;
