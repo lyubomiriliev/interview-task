@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "powershell -Command \"'<!DOCTYPE html><html><head><meta http-equiv=\\\"refresh\\\" content=\\\"0;url=/en/\\\"></head><body>Redirecting...</body></html>' | Out-File -Encoding utf8 out/index.html\"",
+    "postbuild": "echo '<!DOCTYPE html><html><head><meta http-equiv=\"refresh\" content=\"0;url=/en/\"></head><body>Redirecting...</body></html>' > out/index.html",
     "start": "serve out",
     "lint": "next lint",
     "test": "jest",
