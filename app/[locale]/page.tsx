@@ -1,4 +1,5 @@
 import GamesGrid from "@/components/GamesGrid";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { fetchGames } from "@/lib/fetchGames";
 
 export default async function Home() {
@@ -6,6 +7,7 @@ export default async function Home() {
 
   return (
     <main>
+      <LanguageSwitcher />
       <GamesGrid games={games} />
     </main>
   );
