@@ -23,7 +23,12 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const messages = await getMessages({ locale });
+  let messages;
+  try {
+    messages = (await import(`../../messages/${locale}.json`)).default;
+  } catch (error) {
+    notFound();
+  }
 
   return (
     <html lang={locale}>

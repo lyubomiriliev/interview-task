@@ -82,6 +82,7 @@ const GamesGrid: React.FC<Props> = ({ games }) => {
       <Image
         width={300}
         height={120}
+        priority
         alt="PalmsBetLogo"
         src={"../palmsbet-logo.svg"}
       />
