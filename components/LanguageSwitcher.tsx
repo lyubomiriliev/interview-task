@@ -21,7 +21,7 @@ const LanguageSwitcher = () => {
     if (storedLocale && storedLocale !== currentLocale) {
       router.replace(pathname, { locale: storedLocale });
     }
-  }, []);
+  }, [currentLocale, pathname, router]);
 
   if (!mounted) return null;
 

@@ -3,7 +3,6 @@ import "../globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { routing } from "@/src/i18n/routing";
 import { notFound } from "next/navigation";
-import { getMessages } from "next-intl/server";
 import EmotionProvider from "@/components/EmotionProvider";
 
 export const metadata: Metadata = {
@@ -19,7 +18,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as "en" | "bg")) {
     notFound();
   }
 
@@ -27,6 +26,7 @@ export default async function LocaleLayout({
   try {
     messages = (await import(`../../messages/${locale}.json`)).default;
   } catch (error) {
+    console.error("Error importing messages", error);
     notFound();
   }
 
