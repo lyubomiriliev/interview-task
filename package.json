@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "postbuild": "echo '<!DOCTYPE html><html><head><meta http-equiv=\"refresh\" content=\"0;url=/en/\"></head><body>Redirecting...</body></html>' > out/index.html",
+    "start": "serve out",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "export": "next export"
   },
   "dependencies": {
     "@emotion/cache": "^11.14.0",
